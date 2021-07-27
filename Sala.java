@@ -4,7 +4,7 @@ public class Sala {
 
     public Sala(String nome, String observacoes, int capacidade) {
         this.nome = nome;
-        // this.local = local;
+        this.local = observacoes;
         this.observacoes = observacoes;
         this.capacidade = capacidade;
     }

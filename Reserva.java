@@ -10,16 +10,19 @@ public class Reserva {
         this.inicio = inicio;
         this.fim = fim;
     }
-    public Sala sala() {
+    public Sala getSala() {
         return sala;
     }
 
-    public LocalDateTime inicio() {
+    public LocalDateTime getInicio() {
         return inicio;
     }
 
-    public LocalDateTime fim() {
+    public LocalDateTime getFim() {
         return fim;
     }
-
+    @Override
+    public String toString(){
+        return ("Nome da sala: " + sala.getNome() + " Horario reservado: " + inicio + " " + fim);
+    }
 }
