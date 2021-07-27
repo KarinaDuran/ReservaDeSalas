@@ -1,9 +1,11 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Reserva {
     private Sala sala;
     private LocalDateTime inicio;
     private LocalDateTime fim;
+    DateTimeFormatter formatoPadrao = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public Reserva(Sala sala, LocalDateTime inicio, LocalDateTime fim){
         this.sala = sala;
@@ -23,6 +25,6 @@ public class Reserva {
     }
     @Override
     public String toString(){
-        return ("Nome da sala: " + sala.getNome() + " Horario reservado: " + inicio + " " + fim);
+        return ("Sala: " + sala.getNome() + ", Horario reservado: inicio em " + inicio.format(formatoPadrao)+ " e término em " + fim.format(formatoPadrao));
     }
 }

@@ -6,7 +6,8 @@ public class Main {
         GerenciadorDeSalas gsala = new GerenciadorDeSalas();
         
             gsala.adicionaSalaChamada("um", 10, "Sala de terapia");
-            gsala.reservaSalaChamada("um", LocalDateTime.parse("2019-01-01T09:00"), LocalDateTime.parse("2019-01-01T10:00"));
+            // gsala.reservaSalaChamada("um", LocalDateTime.parse("2019-01-01T09:00"), LocalDateTime.parse("2019-01-01T10:00"));
+            gsala.reservaSalaChamada("um", LocalDateTime.parse("2019-01-01T10:00"), LocalDateTime.parse("2019-01-01T09:00"));
             gsala.reservaSalaChamada("um", LocalDateTime.parse("2019-01-01T08:01"), LocalDateTime.parse("2019-01-01T09:00"));
             
             gsala.adicionaSalaChamada("dois", 20, "Sala de jogos");
@@ -25,7 +26,7 @@ public class Main {
             
             gsala.imprimeReservasDaSala("um");
             gsala.imprimeReservasDaSala("dois");
-            // gsala.imprimeReservasDaSala("tres");
+            gsala.imprimeReservasDaSala("tres");
       
         
     }
