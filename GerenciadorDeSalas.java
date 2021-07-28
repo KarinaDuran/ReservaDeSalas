@@ -1,5 +1,4 @@
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -96,18 +95,14 @@ public class GerenciadorDeSalas {
     }
 
     public Reserva reservaSalaChamada(String nomeDaSala, LocalDateTime dataInicial, LocalDateTime dataFinal)
-            throws SalaNaoEncontradaException, SalaJaReservadaException {
+            throws SalaNaoEncontradaException, SalaJaReservadaException, dataInvalidaException {
         Reserva novareReserva = null;
         Sala aux = null;
-        try {
-            if (dataInicial.isAfter(dataFinal))
+            if (dataInicial.isAfter(dataFinal)){
                 throw new dataInvalidaException();
-        } catch (dataInvalidaException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+            }
 
-        try {
+
             for (int i = 0; i < todaSalas.size(); i++) {
                 if (todaSalas.get(i).getNome() == nomeDaSala) {
                     aux = todaSalas.get(i);
@@ -116,12 +111,7 @@ public class GerenciadorDeSalas {
             if (aux == null) {
                 throw new SalaNaoEncontradaException(nomeDaSala);
             }
-        } catch (SalaNaoEncontradaException e) {
-            e.getMessage();
-            return null;
-        }
 
-        try {
             Iterator<Reserva> iterator = todasReservas.iterator();
             while (iterator.hasNext()) {
                 Reserva x = iterator.next();
@@ -136,10 +126,6 @@ public class GerenciadorDeSalas {
             todasReservas.add(novareReserva);
 
             return novareReserva;
-        } catch (SalaJaReservadaException e) {
-            e.getMessage();
-            return null;
-        }
     }
 
     public void cancelaReserva(Reserva cancelada) {
