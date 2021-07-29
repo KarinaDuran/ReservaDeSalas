@@ -9,16 +9,16 @@ public class Sala {
         this.capacidade = capacidade;
     }
 
-    public String getNome(){
+    public String nome(){
         return nome;
     }
-    public String getLocal(){
+    public String local(){
         return local;
     }
-    public String getObservacoes(){
+    public String observacoes(){
         return observacoes;
     }
-    public int getCapacidade(){
+    public int capacidade(){
         return capacidade;
     }
 

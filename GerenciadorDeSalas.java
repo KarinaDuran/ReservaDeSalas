@@ -4,57 +4,14 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-class SalaNaoEncontradaException extends Exception {
-    String sala;
-
-    SalaNaoEncontradaException(String sala) {
-        this.sala = sala;
-    }
-
-    public String getMessage() {
-        return "Sala " + sala + " não encontrada!";
-    }
-}
-
-class SalaJaReservadaException extends Exception {
-    Sala sala;
-
-    SalaJaReservadaException(Sala sala) {
-        this.sala = sala;
-    }
-
-    public String getMessage() {
-        return "Sala " + sala.getNome() + " já reservada neste horario!";
-    }
-}
-
-class dataInvalidaException extends Exception {
-    public String getMessage() {
-        return "Data inválida!";
-    }
-}
-
-class salaDuplicadaException extends Exception {
-    String nome;
-
-    salaDuplicadaException(String nome) {
-        this.nome = nome;
-    }
-
-    public String getMessage() {
-        return "Já existe uma sala com o nome " + nome;
-    }
-}
-
 public class GerenciadorDeSalas {
     private List<Sala> todaSalas = new ArrayList<Sala>();
     private Collection<Reserva> todasReservas = new ArrayList<Reserva>();
 
     public void adicionaSalaChamada(String nome, int capacidadeMaxima, String descricao) {
-        // Adicionar exceção de sala com o mesmo nome
         try {
             for (int i = 0; i < todaSalas.size(); i++) {
-                if (todaSalas.get(i).getNome() == nome) {
+                if (todaSalas.get(i).nome() == nome) {
                     throw new salaDuplicadaException(nome);
                 }
             }
@@ -72,7 +29,7 @@ public class GerenciadorDeSalas {
         try {
             boolean salaEncontrada = false;
             for (int i = 0; i < todaSalas.size(); i++) {
-                if (todaSalas.get(i).getNome() == nomeDaSala) {
+                if (todaSalas.get(i).nome() == nomeDaSala) {
                     salaEncontrada = true;
                     todaSalas.remove(i);
                 }
@@ -98,34 +55,35 @@ public class GerenciadorDeSalas {
             throws SalaNaoEncontradaException, SalaJaReservadaException, dataInvalidaException {
         Reserva novareReserva = null;
         Sala aux = null;
-            if (dataInicial.isAfter(dataFinal)){
-                throw new dataInvalidaException();
+        if (dataInicial.isAfter(dataFinal)) {
+            throw new dataInvalidaException();
+        }
+
+        for (int i = 0; i < todaSalas.size(); i++) {
+            if (todaSalas.get(i).nome() == nomeDaSala) {
+                aux = todaSalas.get(i);
             }
+        }
+        if (aux == null) {
+            throw new SalaNaoEncontradaException(nomeDaSala);
+        }
 
+        Iterator<Reserva> iterator = todasReservas.iterator();
+        while (iterator.hasNext()) {
+            Reserva x = iterator.next();
+            if (x.getSala().nome() == nomeDaSala) {
+                int a = x.getInicio().compareTo(dataInicial);
+                int b= x.getFim().compareTo(dataFinal);
+                
+                if( (a <= 0 )
 
-            for (int i = 0; i < todaSalas.size(); i++) {
-                if (todaSalas.get(i).getNome() == nomeDaSala) {
-                    aux = todaSalas.get(i);
                 }
             }
-            if (aux == null) {
-                throw new SalaNaoEncontradaException(nomeDaSala);
-            }
+    
+        novareReserva = new Reserva(aux, dataInicial, dataFinal);
+        todasReservas.add(novareReserva);
 
-            Iterator<Reserva> iterator = todasReservas.iterator();
-            while (iterator.hasNext()) {
-                Reserva x = iterator.next();
-                if (x.getSala().getNome() == nomeDaSala) {
-                    if (x.getFim().isAfter(dataInicial) && x.getInicio().isBefore(dataFinal)) {
-                        throw new SalaJaReservadaException(x.getSala());
-
-                    }
-                }
-            }
-            novareReserva = new Reserva(aux, dataInicial, dataFinal);
-            todasReservas.add(novareReserva);
-
-            return novareReserva;
+        return novareReserva;
     }
 
     public void cancelaReserva(Reserva cancelada) {
@@ -143,7 +101,7 @@ public class GerenciadorDeSalas {
         boolean salaExiste = false;
         try {
             for (int i = 0; i < todaSalas.size(); i++) {
-                if (todaSalas.get(i).getNome() == nomeSala) {
+                if (todaSalas.get(i).nome() == nomeSala) {
                     salaExiste = true;
                 }
             }
@@ -157,7 +115,7 @@ public class GerenciadorDeSalas {
 
         while (iterator.hasNext()) {
             aux = iterator.next();
-            if (aux.getSala().getNome() == nomeSala) {
+            if (aux.getSala().nome() == nomeSala) {
                 reservasDaSala.add(aux);
             }
         }

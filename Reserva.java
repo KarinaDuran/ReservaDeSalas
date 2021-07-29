@@ -25,6 +25,6 @@ public class Reserva {
     }
     @Override
     public String toString(){
-        return ("Sala: " + sala.getNome() + ", Horario reservado: inicio em " + inicio.format(formatoPadrao)+ " e término em " + fim.format(formatoPadrao));
+        return ("Sala: " + sala.nome() + ", Horario reservado: inicio em " + inicio.format(formatoPadrao)+ " e término em " + fim.format(formatoPadrao));
     }
 }
