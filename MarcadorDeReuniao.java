@@ -14,9 +14,8 @@ public class MarcadorDeReuniao {
 
     public void marcarReuniaoEntre(LocalDate dataInicial, LocalDate dataFinal,
             Collection<String> listaDeParticipantes) {
-        LocalDate hoje = LocalDate.now();
         try {
-            if (dataInicial.isBefore(hoje)) {
+            if (dataInicial.compareTo(dataFinal) >= 0) {
                 throw new dataInvalidaException();
             }
         } catch (dataInvalidaException e) {
@@ -26,7 +25,12 @@ public class MarcadorDeReuniao {
 
         Iterator<String> iterator = listaDeParticipantes.iterator();
         while (iterator.hasNext()) {
-            Participantes.add(new Participante(iterator.next()));
+            Participante aux = new Participante(iterator.next());
+            if (!Participantes.toString().contains(aux.toString()))
+                Participantes.add(aux);
+            else
+                System.out.println("A lista de participantes ja contem um membro com o nome " + aux.nome
+                        + ", somente a primeira insercao foi considerada." + '\n');
         }
         diaInicial = dataInicial;
         diaFinal = dataFinal;
@@ -35,56 +39,75 @@ public class MarcadorDeReuniao {
 
     public void indicaDisponibilidadeDe(String participante, LocalDateTime inicio, LocalDateTime fim) {
         Iterator<Participante> iterator = Participantes.iterator();
+        // Verifica se o horario esta entre os dias estipulados e se eh valido
         try {
             LocalDateTime horaInicial = diaInicial.atStartOfDay();
             LocalDateTime horaFinal = diaFinal.atTime(23, 59);
-            if (inicio.isAfter(fim) || inicio.isBefore(horaInicial) || fim.isAfter(horaFinal) || inicio.equals(fim))
+            if (inicio.isAfter(fim) || inicio.isEqual(fim) || inicio.isBefore(horaInicial) || fim.isAfter(horaFinal))
                 throw new dataInvalidaException();
         } catch (dataInvalidaException e) {
             System.out.println(e.getMessage());
             return;
         }
+
+        boolean participanteExiste = false;
         while (iterator.hasNext()) {
             Participante x = iterator.next();
             if (x.nome == participante) {
+                participanteExiste = true;
                 x.adicionarHorario(inicio, fim);
+                break;
             }
+        }
+
+        if (!participanteExiste) {
+            System.out.println("Participante nao encontrado"+"\n");
         }
 
     }
 
+    // Metodo para mostrar sobreposicao
     public void mostraSobreposicao() {
+        // Iterador dos participantes
         Iterator<Participante> iterator = Participantes.iterator();
+        // Lista auxiliar para remover os horarios que nao sao acessiveis por todos os
+        // membros
         List<LocalDateTime> remocao = new ArrayList<>();
-        Map<LocalDateTime, LocalDateTime> possibilidades = new HashMap<>();
+
+        Map<LocalDateTime, LocalDateTime> sobreposicoes = new HashMap<>();
         Boolean temSobreposicao;
         Participante x;
+        // Adiciona as disponibilidades do primeiro participante
         if (iterator.hasNext()) {
             x = iterator.next();
             if (x.disponibilidade == null)
                 return;
             for (LocalDateTime chave : x.disponibilidade.keySet()) {
-                possibilidades.put(chave, x.disponibilidade.get(chave));
+                sobreposicoes.put(chave, x.disponibilidade.get(chave));
             }
         }
+        // Percorre os proximos participantes para ajustar os horarios do primeiro de
+        // modo que todos possam comparecer
         while (iterator.hasNext()) {
             x = iterator.next();
             if (x.disponibilidade == null)
                 return;
-            for (Map.Entry<LocalDateTime, LocalDateTime> j : possibilidades.entrySet()) {
+            for (Map.Entry<LocalDateTime, LocalDateTime> j : sobreposicoes.entrySet()) {
                 temSobreposicao = false;
                 for (Map.Entry<LocalDateTime, LocalDateTime> i : x.disponibilidade.entrySet()) {
-                    if (((i.getKey().isAfter(j.getKey()) || i.getKey().isEqual(j.getKey()))
-                            && i.getKey().isBefore(j.getValue()))
-                            || (i.getValue().isAfter(j.getKey())
-                                    && (i.getValue().isBefore(j.getValue()) || i.getValue().isEqual(j.getValue())))) {
+                    if ((i.getKey().compareTo(j.getKey()) >= 0 && i.getKey().compareTo(j.getValue()) < 0)
+                            || ((i.getValue().compareTo(j.getValue()) <= 0)
+                                    && i.getValue().compareTo(j.getKey()) > 0)) {
+
                         temSobreposicao = true;
+
                         if (i.getKey().isAfter(j.getKey())) {
-                            possibilidades.put(i.getKey(), j.getValue());
-                            possibilidades.remove(j.getKey());
+                            sobreposicoes.put(i.getKey(), j.getValue());
+                            sobreposicoes.remove(j.getKey());
                         }
+
                         if (i.getValue().isBefore(j.getValue())) {
-                            possibilidades.replace(j.getKey(), i.getValue());
+                            sobreposicoes.replace(j.getKey(), i.getValue());
                         }
                     }
 
@@ -97,9 +120,9 @@ public class MarcadorDeReuniao {
 
         }
         for (LocalDateTime i : remocao) {
-            possibilidades.remove(i);
+            sobreposicoes.remove(i);
         }
-        Console a = new Console(Participantes, possibilidades, diaInicial, diaFinal);
+        Console a = new Console(Participantes, sobreposicoes, diaInicial, diaFinal);
         a.imprime();
     }
 

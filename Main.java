@@ -6,85 +6,74 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args)throws Exception {
-        GerenciadorDeSalas gsala = new GerenciadorDeSalas();
+    public static void main(String[] args) throws Exception {
+        // // GerenciadorDeSalas gsala = new GerenciadorDeSalas();
+        // // gsala.adicionaSalaChamada("pao", 51, "sala de comida");
+        // // gsala.adicionaSalaChamada("feijao", 51, "sala de comida");
+        // // gsala.adicionaSalaChamada("sopa", 51, "sala de comida");
+        // // gsala.adicionaSalaChamada("beterraba", 51, "sala de comida");
+
+        // // List <Sala> salas = gsala.listaDeSalas();
+        // // for (int i =0; i< salas.size(); i++){
+        // // System.out.println(salas.get(i).nome());
+        // // }
+        // // LocalDateTime aa = LocalDateTime.of(2021, 2, 14, 13, 40);
+        // // LocalDateTime b = LocalDateTime.of(2021, 3, 14, 13, 40);
+        // // LocalDateTime c = LocalDateTime.of(2021, 4, 14, 13, 40);
+        // // LocalDateTime d = LocalDateTime.of(2021, 5, 14, 13, 40);
+        // // gsala.reservaSalaChamada("pao", aa, b);
+        // // Reserva bb = gsala.reservaSalaChamada("pao", c, d);
+        // // gsala.reservaSalaChamada("feijao", aa, c);
+        // // // gsala.cancelaReserva(bb);
+
+        // // gsala.imprimeReservasDaSala("feijao");
+
+        // MarcadorDeReuniao mReuniao = new MarcadorDeReuniao();
+
+        // LocalDate a = LocalDate.of(2021, 8, 20);
+        // LocalDate b = LocalDate.of(2021, 9, 20);
+
+        // Collection<String> participantes = new ArrayList<String>();
+        // participantes.add("a");
+        // participantes.add ("a");
+        // participantes.add("b");
+        // participantes.add("c");
+        // participantes.add("d");
+        // participantes.add(("e"));
+        // participantes.add(("f"));
+        // participantes.add(("g"));
+        // participantes.add(("h"));
+
+        // mReuniao.marcarReuniaoEntre(a, b, participantes);
+
+        // LocalDateTime x = LocalDateTime.of(2021, 9, 14, 13, 40);
+        // LocalDateTime y = LocalDateTime.of(2021, 9, 16, 13, 40);
+        // LocalDateTime z = LocalDateTime.of(2021, 8, 21, 13, 40);
+        // LocalDateTime d = LocalDateTime.of(2021, 8, 26, 13, 40);
+        // LocalDateTime e = LocalDateTime.of(2021, 8, 26, 12, 25);
+
+        // mReuniao.indicaDisponibilidadeDe("a", x, y);
+        // mReuniao.indicaDisponibilidadeDe("b", x, y);
+        // mReuniao.indicaDisponibilidadeDe("c", x, y);
+        // mReuniao.indicaDisponibilidadeDe("d", x, y);
+        // // mReuniao.indicaDisponibilidadeDe("e", x, y);
+        // mReuniao.indicaDisponibilidadeDe("f", x, y);
+        // mReuniao.indicaDisponibilidadeDe("g", x, y);
+        // mReuniao.indicaDisponibilidadeDe("h", x, y);
+
         
-            gsala.adicionaSalaChamada("um", 10, "Sala de terapia");
-            gsala.reservaSalaChamada("um", LocalDateTime.parse("2019-01-01T09:00"), LocalDateTime.parse("2019-01-01T10:00"));
-            // gsala.reservaSalaChamada("um", LocalDateTime.parse("2019-01-01T10:00"), LocalDateTime.parse("2019-01-01T09:00"));
-     
-            
-            gsala.adicionaSalaChamada("dois", 20, "Sala de jogos");
-            gsala.reservaSalaChamada("dois", LocalDateTime.parse("2019-01-01T09:00"), LocalDateTime.parse("2019-01-01T10:00"));
-            // gsala.reservaSalaChamada("tres", LocalDateTime.parse("2019-01-01T09:00"), LocalDateTime.parse("2019-01-01T10:00"));
-
-            // gsala.adicionaSalaChamada("tres", 20, "Sala de jogos");
-            
-            //!! Códigos comentados para testes de exceções, tirar comentários e testar !!
-            
-            //Tentativa de criar sala com o mesmo nome - Resulta numa exception de SalaExistente
-            //Sala sala3 = 
-            gsala.adicionaSalaChamada("dois", 20, "Sala de jogos");
-            //Tentativa de sobrepor um horário de uma reserva já feia - Resulta numa exception de InterseccaoReserva
-            //gsala.reservaSalaChamada("dois", LocalDateTime.parse("2019-01-01T09:30"), LocalDateTime.parse("2019-01-01T10:30"));
-            
-            gsala.imprimeReservasDaSala("um");
-            gsala.imprimeReservasDaSala("dois");
-            gsala.imprimeReservasDaSala("tres");
-    
-            
-
-
-            // Collection <String> p = new ArrayList<>();
-            // p.add("a");
-            // p.add("b");
-            // p.add("c");
-            // p.add("d");
-            // p.add("e");
-            // p.add("f");
-            // p.add("g");
-            // p.add("h");
-
-            // MarcadorDeReuniao m = new MarcadorDeReuniao();
-            // LocalDate x = LocalDate.of(2022, 7, 22);
-            // LocalDate y = LocalDate.of(2022, 8, 22);
-            // m.marcarReuniaoEntre(x, y, p);
-            // System.out.println(m.diaInicial);
-            // System.out.println(m.diaFinal);
-
-            // LocalDateTime inicio = LocalDateTime.of(2022, 7, 23, 10, 15);
-            // LocalDateTime fim = LocalDateTime.of(2022, 7, 27, 10, 15);
-            // LocalDateTime inicio1 = LocalDateTime.of(2022, 8, 5, 10, 15);
-            // LocalDateTime fim1 = LocalDateTime.of(2022, 8, 12, 10, 15);
-            // m.indicaDisponibilidadeDe("a", inicio, fim);
-            // m.indicaDisponibilidadeDe("a", inicio1, fim1);
-
-            // m.indicaDisponibilidadeDe("b", inicio, fim);
-            // m.indicaDisponibilidadeDe("b", inicio1, fim1);
-            // LocalDateTime fim2 = LocalDateTime.of(2022, 8, 5, 10, 15);
-            // m.indicaDisponibilidadeDe("c", inicio, fim);
-            // m.indicaDisponibilidadeDe("c", inicio1, fim2);
-
-            // m.indicaDisponibilidadeDe("d", inicio, fim);
-            // m.indicaDisponibilidadeDe("d", inicio1, fim1);
-
-            // m.indicaDisponibilidadeDe("e", inicio, fim);
-            // m.indicaDisponibilidadeDe("e", inicio1, fim1);
-
-            // m.indicaDisponibilidadeDe("f", inicio, fim);
-            // m.indicaDisponibilidadeDe("f", inicio1, fim1);
-
-            // m.indicaDisponibilidadeDe("g", inicio, fim);
-            // m.indicaDisponibilidadeDe("g", inicio1, fim1);
-
-            // m.indicaDisponibilidadeDe("h", inicio, fim);
-            // m.indicaDisponibilidadeDe("h", inicio1, fim1);
-
-            // m.mostraSobreposicao();
-
-
-            
         
+        // mReuniao.indicaDisponibilidadeDe("a", z, d);
+        // mReuniao.indicaDisponibilidadeDe("b", z, d);
+        // mReuniao.indicaDisponibilidadeDe("c", z, d);
+        // mReuniao.indicaDisponibilidadeDe("u", z, d);
+        // mReuniao.indicaDisponibilidadeDe("d", z, d);
+        // mReuniao.indicaDisponibilidadeDe("e", z, y);
+        // mReuniao.indicaDisponibilidadeDe("f", z, d);
+        // mReuniao.indicaDisponibilidadeDe("g", z, e);
+        // mReuniao.indicaDisponibilidadeDe("h", z, d);
+
+        //     mReuniao.mostraSobreposicao();
     }
-    
+
 }

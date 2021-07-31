@@ -1,3 +1,6 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 class SalaNaoEncontradaException extends Exception {
     String sala;
@@ -7,25 +10,30 @@ class SalaNaoEncontradaException extends Exception {
     }
 
     public String getMessage() {
-        return "Sala " + sala + " não encontrada!";
+        return "Sala " + sala + " nao encontrada!";
     }
 }
 
 class SalaJaReservadaException extends Exception {
+    DateTimeFormatter formatoPadrao = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     Sala sala;
+    LocalDateTime inicio;
+    LocalDateTime fim;
 
-    SalaJaReservadaException(Sala sala) {
+    SalaJaReservadaException(Sala sala, LocalDateTime inicio, LocalDateTime fim) {
         this.sala = sala;
+        this.inicio = inicio;
+        this.fim = fim;
     }
 
     public String getMessage() {
-        return "Sala " + sala.nome() + " já reservada neste horario!";
+        return "Sala " + sala.nome() + " ja reservada entre " + inicio.format(formatoPadrao) + " e " + fim.format(formatoPadrao);
     }
 }
 
 class dataInvalidaException extends Exception {
     public String getMessage() {
-        return "Data inválida!";
+        return "Data invalida!";
     }
 }
 
@@ -37,6 +45,6 @@ class salaDuplicadaException extends Exception {
     }
 
     public String getMessage() {
-        return "Já existe uma sala com o nome " + nome;
+        return "Ja existe uma sala com o nome " + nome;
     }
 }
