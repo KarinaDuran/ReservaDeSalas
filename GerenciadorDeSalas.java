@@ -24,6 +24,10 @@ public class GerenciadorDeSalas {
             return;
         }
 
+        if(capacidadeMaxima < 0 ){
+            System.out.println("Capacidade menor que 0");
+            return;
+        } 
         Sala novaSala = new Sala(nome, descricao, capacidadeMaxima);
 
         adicionaSala(novaSala);

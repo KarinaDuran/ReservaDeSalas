@@ -7,73 +7,62 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        // // GerenciadorDeSalas gsala = new GerenciadorDeSalas();
-        // // gsala.adicionaSalaChamada("pao", 51, "sala de comida");
-        // // gsala.adicionaSalaChamada("feijao", 51, "sala de comida");
-        // // gsala.adicionaSalaChamada("sopa", 51, "sala de comida");
-        // // gsala.adicionaSalaChamada("beterraba", 51, "sala de comida");
 
-        // // List <Sala> salas = gsala.listaDeSalas();
-        // // for (int i =0; i< salas.size(); i++){
-        // // System.out.println(salas.get(i).nome());
-        // // }
-        // // LocalDateTime aa = LocalDateTime.of(2021, 2, 14, 13, 40);
-        // // LocalDateTime b = LocalDateTime.of(2021, 3, 14, 13, 40);
-        // // LocalDateTime c = LocalDateTime.of(2021, 4, 14, 13, 40);
-        // // LocalDateTime d = LocalDateTime.of(2021, 5, 14, 13, 40);
-        // // gsala.reservaSalaChamada("pao", aa, b);
-        // // Reserva bb = gsala.reservaSalaChamada("pao", c, d);
-        // // gsala.reservaSalaChamada("feijao", aa, c);
-        // // // gsala.cancelaReserva(bb);
+        // Exemplos de uso dos metodos de GerenciadorDeSalas
+        GerenciadorDeSalas gerenciador = new GerenciadorDeSalas();
+        gerenciador.adicionaSalaChamada("Sala 1", 50, "Sala de conversas");
+        gerenciador.adicionaSalaChamada("Sala 2", 78, "Sala de jogos");
+        gerenciador.adicionaSalaChamada("Sala 3", 60, "Sala de cinema");
+        gerenciador.adicionaSalaChamada("Sala 4", 42, "Sala de reuniao");
 
-        // // gsala.imprimeReservasDaSala("feijao");
+        gerenciador.removeSalaChamada("Sala 3");
 
-        // MarcadorDeReuniao mReuniao = new MarcadorDeReuniao();
+        List<Sala> salas = gerenciador.listaDeSalas();
 
-        // LocalDate a = LocalDate.of(2021, 8, 20);
-        // LocalDate b = LocalDate.of(2021, 9, 20);
+        LocalDateTime x = LocalDateTime.of(2021, 9, 14, 13, 40);
+        LocalDateTime y = LocalDateTime.of(2021, 9, 16, 13, 40);
+        LocalDateTime z = LocalDateTime.of(2021, 8, 21, 13, 40);
+        LocalDateTime d = LocalDateTime.of(2021, 8, 26, 13, 40);
 
-        // Collection<String> participantes = new ArrayList<String>();
-        // participantes.add("a");
-        // participantes.add ("a");
-        // participantes.add("b");
-        // participantes.add("c");
-        // participantes.add("d");
-        // participantes.add(("e"));
-        // participantes.add(("f"));
-        // participantes.add(("g"));
-        // participantes.add(("h"));
+        Reserva reserva1 = gerenciador.reservaSalaChamada("Sala 1", x, y);
+        Reserva reserva2 = gerenciador.reservaSalaChamada("Sala 2", x, y);
+        Reserva reserva3 = gerenciador.reservaSalaChamada("Sala 2", z, d);
 
-        // mReuniao.marcarReuniaoEntre(a, b, participantes);
+        gerenciador.cancelaReserva(reserva1);
 
-        // LocalDateTime x = LocalDateTime.of(2021, 9, 14, 13, 40);
-        // LocalDateTime y = LocalDateTime.of(2021, 9, 16, 13, 40);
-        // LocalDateTime z = LocalDateTime.of(2021, 8, 21, 13, 40);
-        // LocalDateTime d = LocalDateTime.of(2021, 8, 26, 13, 40);
-        // LocalDateTime e = LocalDateTime.of(2021, 8, 26, 12, 25);
+        Collection<Reserva> reservas = gerenciador.reservasParaSala("Sala 2");
 
-        // mReuniao.indicaDisponibilidadeDe("a", x, y);
-        // mReuniao.indicaDisponibilidadeDe("b", x, y);
-        // mReuniao.indicaDisponibilidadeDe("c", x, y);
-        // mReuniao.indicaDisponibilidadeDe("d", x, y);
-        // // mReuniao.indicaDisponibilidadeDe("e", x, y);
-        // mReuniao.indicaDisponibilidadeDe("f", x, y);
-        // mReuniao.indicaDisponibilidadeDe("g", x, y);
-        // mReuniao.indicaDisponibilidadeDe("h", x, y);
+        gerenciador.imprimeReservasDaSala("Sala 2");
 
-        
-        
-        // mReuniao.indicaDisponibilidadeDe("a", z, d);
-        // mReuniao.indicaDisponibilidadeDe("b", z, d);
-        // mReuniao.indicaDisponibilidadeDe("c", z, d);
-        // mReuniao.indicaDisponibilidadeDe("u", z, d);
-        // mReuniao.indicaDisponibilidadeDe("d", z, d);
-        // mReuniao.indicaDisponibilidadeDe("e", z, y);
-        // mReuniao.indicaDisponibilidadeDe("f", z, d);
-        // mReuniao.indicaDisponibilidadeDe("g", z, e);
-        // mReuniao.indicaDisponibilidadeDe("h", z, d);
+        // Exemplos dos métodos de MarcadorDeReuniao
 
-        //     mReuniao.mostraSobreposicao();
+        MarcadorDeReuniao mReuniao = new MarcadorDeReuniao();
+
+        LocalDate inicio = LocalDate.of(2021, 8, 20);
+        LocalDate fim = LocalDate.of(2021, 9, 20);
+
+        Collection<String> participantes = new ArrayList<String>();
+        participantes.add("Felipe");
+        participantes.add("Cristiane");
+        participantes.add("Zoe");
+        participantes.add("Karina");
+        participantes.add("Marcos");
+        participantes.add("Marcia");
+        participantes.add("Antonio");
+        participantes.add("Junior");
+
+        mReuniao.marcarReuniaoEntre(inicio, fim, participantes);
+
+        mReuniao.indicaDisponibilidadeDe("Felipe", x, y);
+        mReuniao.indicaDisponibilidadeDe("Cristiane", x, y);
+        mReuniao.indicaDisponibilidadeDe("Zoe", x, y);
+        mReuniao.indicaDisponibilidadeDe("Marcos", x, y);
+        mReuniao.indicaDisponibilidadeDe("Karina", x, y);
+        mReuniao.indicaDisponibilidadeDe("Marcia", x, y);
+        mReuniao.indicaDisponibilidadeDe("Antonio", x, y);
+        mReuniao.indicaDisponibilidadeDe("Junior", x, y);
+
+        mReuniao.mostraSobreposicao();
     }
 
 }
